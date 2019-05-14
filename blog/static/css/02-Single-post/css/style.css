@@ -23,12 +23,11 @@
 		DROPDOWN MENU STYLING
 		DROPDOWN SUBMENU
 		DROPDOWN HOVER
-		NAV ICON
-	4. SINGLE POST
-		POST AUTHOR
-		COMMENTS AREA
-		LEAVE COMMENT
-	5. SIDEBAR STYLING
+	4. SLIDER
+	5. SINGLE POST
+		POST STYLE TWO
+		LOAD MORE BUTTON
+	6. SIDEBAR STYLING
 		ABOUT AUTHOR
 		SEARCH AREA
 		NEWSLETTER AREA
@@ -37,8 +36,8 @@
 		ADVERTISEMENT AREA
 		INSTAGRAM
 		TAGS
-	6. FOOTER INSTAGRAM STYLING
-	7. FOOTER
+	7. FOOTER INSTAGRAM STYLING
+	8. FOOTER
 
 ====================================================
 
@@ -47,6 +46,10 @@
 --------------------------------- */
 
 html{ font-size: 100%; height: 100%;  overflow-x: hidden; touch-action: manipulation; }
+
+body{ font-size: 15px; font-family: 'Roboto', sans-serif; width: 100%; height: 100%; margin: 0; font-weight: 400;
+	-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; word-wrap: break-word;
+	color: #000; }
 
 h1, h2, h3, h4, h5, h6, p, a, ul, span, li, img, inpot, button{ margin: 0; padding: 0; }
 
@@ -90,7 +93,7 @@ b.light-color{ color: #444; }
 
 .btn:hover{ color: #FFAD4D; background: none; }
 
-.btn-2{ background: none; box-shadow: 2px 10px 20px rgba(0,0,0,.2); color: #FFAD4D; }
+.btn-2{ background: none; color: #FFAD4D; }
 
 .btn-2:hover{ background: #FFAD4D; color: #fff; }
 
@@ -135,9 +138,6 @@ b.light-color{ color: #444; }
 
 :-moz-placeholder { font-size: .9em; letter-spacing: 1px;  }
 
-input:focus,
-textarea:focus{ border-color: #FFAD4D!important; }
-
 
 
 /* ---------------------------------
@@ -150,7 +150,7 @@ header{ position: absolute; left: 0; right: 0; top: 0; z-index: 1000; font-size:
 
 /* TOP MENU */
 
-header .top-menu{ width: 100%; height: 45px; line-height: 45px; overflow: hidden; font-size: .95em; font-style: italic; }
+header .top-menu{ width: 100%; height: 45px;  line-height: 45px; overflow: hidden; font-size: .95em; font-style: italic; }
 
 
 header .top-menu ul.welcome-area{ padding-left: 20px; }
@@ -163,8 +163,6 @@ header .top-menu ul > li:first-child{ border-left: 0; }
 header .top-menu ul.social-icons{ display: inline-block; padding: 0 35px; color: #aaa; }
 
 header .top-menu ul.social-icons > li > a{ padding: 0 15px; }
-
-
 
 /* SEARCH AREA */
 
@@ -192,16 +190,16 @@ header .logo img{ height: 100%; width: auto; }
 
 /* BOTTOM AREA */
 
-header .bottom-area{ text-align: center; }
+header .bottom-area{ text-align: center; position: fixed;  top: 0;}
 
 header .main-menu{ font-weight: 500; }
 
 header .main-menu > li > a{ height: 60px; line-height: 60px; padding: 0 25px; }
 
-header .main-menu > li > a:hover{ background: #eee; }
+header .main-menu > li > a:hover{ background: #eee ; }
 
 
-header .visible.main-menu{ display: block; }
+header .visible.main-menu{ display: block;  }
 
 
 
@@ -249,9 +247,29 @@ header .main-menu li.drop-down a.mouseover + ul.drop-down-menu{ display: block;
 
 
 /* ---------------------------------
-4. SINGLE POST
+4. SLIDER
 --------------------------------- */
 
+.main-slider{ margin-top: 330px; position: relative; height: calc(100vh - 265px); min-height: 550px;
+	width: 100%; overflow: hidden; }
+
+.main-slider .slider-content{ padding: 25px 60px 25px 40px!important; border-radius: 3px!important;
+	background: rgba(0,0,0,.6); color: #fff; }
+
+.slider-content .btn{ padding: 7px 15px; }
+
+.slider-content .title{ margin: 10px 0 0; letter-spacing: 3px; }
+
+
+#slider{ height: 100%; width: 100%; }
+
+.main-slider .ls-nav-prev,
+.main-slider .ls-nav-next{ display: block!important; opacity: 1!important; }
+
+
+/* ---------------------------------
+5. SINGLE POST
+--------------------------------- */
 
 .blog-posts .single-post{ margin-bottom: 60px; }
 
@@ -269,69 +287,35 @@ header .main-menu li.drop-down a.mouseover + ul.drop-down-menu{ display: block;
 
 .single-post .date{ color: #999; }
 
-.single-post .desc{ margin: 30px 0; }
+.single-post .read-more-btn{ clear: both; margin-top: 30px; box-shadow: 1px 10px 15px rgba(0,0,0, .15);
+	border: 1px solid #FFAD4D; background: #fff; color: #FFAD4D; }
 
-.single-post .quoto{ padding: 30px 40px; position: relative; }
-
-.single-post .quoto i{ margin-right: 10px; position: absolute; top: 10px; left: 10px; font-size: 1.4em;
-	color: #FFAD4D; }
+.single-post .read-more-btn:hover{ box-shadow: 1px 3px 15px rgba(0,0,0, .15); background: #FFAD4D; color: #fff; }
 
 
-/* POST AUTHOR */
+/* POST STYLE TWO */
 
-.blog-posts .post-author{ margin: 30px 0; margin-left: 20px; padding: 40px 30px; position: relative;
-	box-shadow: 0px 5px 40px rgba(0,0,0,.2); }
+.post-style-2 .image-wrapper{ padding-right: 30px; }
 
-.post-author .author-image{ height: 120px; width: 120px; position: absolute; left: -20px; top: 50%;
-	margin-top: -60px; border-radius: 2px; overflow: hidden; }
+.post-style-2 .post-details .icons{ margin-top: 0; }
 
-.post-author .author-info{ margin-left: 100px; }
-
-.post-author .name{ margin-bottom: 15px; }
-
-.post-author .social-icons{ margin-top: 15px; color: #888; }
-
-.post-author .social-icons > li > a{ padding-right: 15px; }
+.post-style-2 .post-details .icons .caegory-btn{ margin: 0; }
 
 
-/* COMMENTS AREA */
+/* LOAD MORE BUTTON */
 
-.comments-area{ margin: 50px 0; }
-
-.comments-area .author-image{ height: 70px; width: 70px; border-radius: 100px; overflow: hidden; float: left; }
-
-.comments-area .comment-info{ margin-left: 90px; }
-
-.comments-area .title{ margin-bottom: 30px; }
-
-.comments-area .comment{ margin-bottom: 30px; }
-
-.comments-area .date{ margin: 5px 0 15px; color: #888; }
-
-
-/* LEAVE COMMENT */
-
-.leave-comment-area{ margin: 50px 0; }
-
-.leave-comment-area .title{ margin-bottom: 30px; }
-
-.leave-comment input,
-.leave-comment textarea{ width: 100%; margin-bottom: 30px; border: 0; outline: 0; border-bottom: 1px solid #aaa; }
-
-.leave-comment input{ padding: 10px 0px; }
-
-.leave-comment textarea{ padding: 10px 0px; }
+.blog-posts .load-more-btn{ clear: both; margin: 70px 0 30px; }
 
 
 /* ---------------------------------
-5. SIDEBAR STYLING
+6. SIDEBAR STYLING
 --------------------------------- */
 
 .sidebar-section{ margin-bottom: 50px; }
 
 .sidebar-section .title{ margin-bottom: 30px; }
 
-.sidebar-area img{ max-width: 600px; }
+.sidebar-area img{ max-width: 500px; }
 
 
 /* ABOUT AUTHOR */
@@ -422,7 +406,7 @@ header .main-menu li.drop-down a.mouseover + ul.drop-down-menu{ display: block;
 
 
 /* ---------------------------------
-6. FOOTER INSTAGRAM STYLING
+7. FOOTER INSTAGRAM STYLING
 --------------------------------- */
 
 .footer-instagram-area{ overflow: hidden; border-top: 1px solid #ccc; }
@@ -433,7 +417,7 @@ header .main-menu li.drop-down a.mouseover + ul.drop-down-menu{ display: block;
 
 
 /* ---------------------------------
-7. FOOTER
+8. FOOTER
 --------------------------------- */
 
 footer{ background: #29333C; color: #ddd;  }
@@ -445,3 +429,7 @@ footer .copyright{ color: #ddd;  }
 footer .social-icons{ text-align: right; }
 
 footer .social-icons > li > a{ padding-left: 15px; }
+
+.post{
+    margin-top:400px;
+}

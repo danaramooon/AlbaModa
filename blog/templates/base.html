@@ -11,8 +11,6 @@
     <link rel="stylesheet" href="{%static 'css/layerslider.css' %}">
     <link rel="stylesheet" href="{%static 'css/ioicons.css' %}">
     <link rel="stylesheet" href="{%static 'css/swiper.css' %}">
-    <link rel="stylesheet" href="{%static 'css/styles.css' %}">
-    <link rel="stylesheet" href="{%static 'css/style.css' %}">
     <link href="{%static 'css/02-Single-post/css/style.css'%}" rel="stylesheet">
     <link href="{%static 'css/02-Single-post/css/relative.css'%}" rel="stylesheet">
 
@@ -76,7 +74,7 @@
 			<ul class="main-menu visible-on-click" id="main-menu">
 
                 <li><a href="{%url 'home'%}">HOME</a></li>
-				<li class="drop-down"><a href="#">CATEGORIES<i class="ion-ios-arrow-down"></i></a>
+				<li onmouseover="mouseOver()" onmouseout="mouseOut()" id = "dropCat" class="drop-down"><a href="#">CATEGORIES<i class="ion-ios-arrow-down"></i></a>
                     <ul class="drop-down-menu">
 						<li><a href="{%url 'post' 1%}">STYLE</a></li>
 						<li><a href="{%url 'post' 2%}">BEAUTY</a></li>
