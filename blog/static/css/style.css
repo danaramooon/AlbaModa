@@ -1,0 +1,11 @@
+.ell_text{
+  margin:0;
+  height:100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.section blog-area{
+    margin-top:300px;
+}
+.aboutus{
+}

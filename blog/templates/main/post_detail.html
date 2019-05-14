@@ -1,0 +1,83 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block container%}
+<div class = "block" style="margin-top:330px; width: 90%; margin-left:60px;" >
+    <div class="blog-posts">
+        <div class="single-post">
+            <div class="image-wrapper"><img src="{{post.img_src}}" alt="Blog Image"></div>
+                <div class="icons">
+                    <div class="left-area">
+                        <a class="btn caegory-btn" href="#"><b>{{post.category.name}}</b></a>
+                    </div>
+                    <ul class="right-area social-icons">
+                        <li><a href="#"><i class="ion-android-share-alt"></i>Share</a></li>
+                        <li><a href="{%url 'like' post.id%}"><i class="ion-android-favorite-outline"></i>{{post.like}}</a></li>
+                        <li><a href="#"><i class="ion-android-textsms"></i>06</a></li>
+                    </ul>
+                </div>
+            <p class="date"><em>{{post.date}}</em></p>
+            <h3 class="title"><a href="{%url 'detail' post.id%}"><b class="light-color">{{post.title}}</b></a></h3>
+            <p>{{post.text}}</p>
+        </div><!-- single-post -->
+
+    <div class="comments-area">
+        <h4 class="title"><b class="light-color">{{post.comments.count}} Comments</b></h4>
+             {%for c in post.comments.all%}
+                <div class="comment">
+                     <div class="author-image"><img src="/static/images/user.png" alt="Autohr Image"></div>
+                         <div class="comment-info">
+                             <h5><b class="light-color">{{c.owner}}</b></h5>
+                             <h6 class="date"><em>{{c.date}}</em></h6>
+                             <p>{{c.comment}}</p>
+                             {%if user == c.owner%}
+                                <a href= "{%url 'update_com' post.id c.id%}"
+                                   class="btn btn-info pull-right" style="background: SkyBlue;">
+                                   Update
+                                </a>
+                                <a href= "{%url 'delete_com' post.id c.id%}"
+                                   class="btn btn-info pull-right" style="background: Red;">
+                                   Delete
+                                </a>
+                             {%endif%}
+                         </div>
+                </div><!-- comment -->
+             {%endfor%}
+
+        <div class="leave-comment-area">
+            <h4 class="title"><b class="light-color">Leave a comment</b></h4>
+                <div class="leave-comment">
+                    <form method="post"
+                          {%if user.is_authenticated%}
+                            action="{% url 'comment_new' post.id%}"
+                          {%else%}
+                            action="{% url 'login'%}"
+                          {%endif%}>
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <textarea class="message-input" rows="6" placeholder="Message" name = "comment"></textarea>
+                            </div>
+                            <div class="col-sm-12">
+                                {%if user.is_authenticated == False%}
+                                    <h4 class="text-danger">Please Log In to leave a comment</h4>
+                                {%endif%}
+                                <br>
+                                <button class="btn btn-2"><b>COMMENT</b></button>
+                            </div>
+                        </div><!-- row -->
+                    </form>
+                </div><!-- leave-comment -->
+        </div><!-- comments-area -->
+        {%if user == post.owner%}
+            <a href= "{%url 'update' post.id %}"
+               class="btn btn-info pull-right" style="background: SkyBlue;">
+                Update
+            </a>
+            <a href= "{%url 'delete' post.id %}"
+               class="btn btn-info pull-right" style="background: Red;">
+                Delete
+            </a>
+        {%endif%}
+    </div>
+</div>
+{%endblock%}

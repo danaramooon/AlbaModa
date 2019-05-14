@@ -1,0 +1,13 @@
+{%extends 'base.html'%}
+{%block container%}
+<div class = "block" style="margin-top:330px">
+    <h1>Comment Update</h1>
+    <form method="post" action = ".">
+      {%csrf_token%}
+            <input type = "text" name = "{{form.comment.name}}"
+                value = "{{form.comment.value}}"
+                class = "form-control">
+        <input type="submit" class="btn btn-default">
+    </form>
+</div>
+{%endblock%}
