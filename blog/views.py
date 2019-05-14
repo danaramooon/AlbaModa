@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
-from main.models import Post,Comment,Category
+from main.models import Post,Comment,Category,Product
 from .forms import SearchForm
 from django.views.generic import (
     TemplateView,
@@ -118,4 +118,9 @@ class AboutView(TemplateView):
     template_name = "main/about.html"
 
 class StoreView(TemplateView):
+    template_name = "main/store.html"
+
+class ProductListView(ListView):
+    model = Product
+    context_object_name = "products"
     template_name = "main/store.html"

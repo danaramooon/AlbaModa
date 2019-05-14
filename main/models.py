@@ -39,5 +39,15 @@ class Comment(models.Model):
     post_comment = CommentManager()
     objects = models.Manager()
 
+class Product(models.Model):
+    name = models.CharField(max_length=200)
+    price = models.IntegerField()
+    img_src = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
+
+
+
 
 

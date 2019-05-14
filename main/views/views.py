@@ -1,21 +1,22 @@
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated,AllowAny,IsAdminUser
 from rest_framework.authentication import TokenAuthentication
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
-from main.serializers import PostModelSerializer,CommentModelSerializer
-from main.models import Post,Comment,Category
+from main.serializers import PostModelSerializer,CommentSerializer,ProductSerializer
+from main.models import Post,Comment,Category,Product
 from django.contrib.auth.mixins import LoginRequiredMixin
 from rest_framework import generics
 from rest_framework import status
+from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from rest_framework.pagination import PageNumberPagination
 from django.contrib.auth.decorators import login_required
 from rest_framework.response import Response
 
-@api_view(['GET'])
-def post_list(request):
-    posts = Post.objects.all()
-    serializer = PostModelSerializer(posts,many = True)
-    return Response(serializer.data)
+class PostList(APIView):
+    def get(self, request):
+        posts = Post.objects.all()
+        serializer = PostModelSerializer(posts, many=True)
+        return Response(serializer.data)
 
 @api_view(['POST'])
 def post_create(request):
@@ -26,14 +27,17 @@ def post_create(request):
     return Response(serializer.errors,status= status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET'])
-def post_detail(request,pk):
-    try:
-        task=Post.objects.get(pk=pk)
-    except Post.DoesNotExist:
-        return Response(status= status.HTTP_404_NOT_FOUND)
-    serializer = PostModelSerializer(task)
-    return Response(serializer.data)
+class PostDetail(APIView):
+    def get_object(self, pk):
+        try:
+            return Post.objects.get(pk=pk)
+        except Post.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+    def get(self, pk):
+        task = self.get_object(pk)
+        serializer = PostModelSerializer(task)
+        return Response(serializer.data)
 
 @api_view(['PUT','DELETE'])
 def post_update(request,pk):
@@ -52,13 +56,14 @@ def post_update(request,pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class StandardResultsSetPagination(PageNumberPagination):
-    page_size = 2
+    page_size = 3
     page_size_query_param = 'page_size'
-    max_page_size = 1000
+    max_page_size = 100
 
 class CommentListView(generics.ListCreateAPIView):
-    serializer_class = CommentModelSerializer
+    serializer_class = CommentSerializer
     pagination_class = StandardResultsSetPagination
+    permission_classes = (AllowAny,)
 
     def get_queryset(self):
         return Comment.post_comment.for_post(
@@ -67,7 +72,7 @@ class CommentListView(generics.ListCreateAPIView):
 
 class CommentCreateView(generics.CreateAPIView):
     queryset = Comment.objects.all()
-    serializer_class = CommentModelSerializer
+    serializer_class = CommentSerializer
     permission_classes = (IsAuthenticated,)
     authentication_classes = (TokenAuthentication,JSONWebTokenAuthentication,)
 
@@ -76,10 +81,10 @@ class CommentCreateView(generics.CreateAPIView):
 
 class CommentDetailView(generics.RetrieveAPIView):
     queryset = Comment.objects.all()
-    serializer_class = CommentModelSerializer
+    serializer_class = CommentSerializer
 
 class CommentUpdateView(generics.UpdateAPIView,LoginRequiredMixin):
-    serializer_class = CommentModelSerializer
+    serializer_class = CommentSerializer
     permission_classes = (IsAuthenticated,)
     authentication_classes = (TokenAuthentication,)
 
@@ -90,7 +95,7 @@ class CommentUpdateView(generics.UpdateAPIView,LoginRequiredMixin):
         )
 
 class CommentDeleteView(generics.DestroyAPIView,LoginRequiredMixin):
-    serializer_class = CommentModelSerializer
+    serializer_class = CommentSerializer
     permission_classes = (IsAuthenticated,)
     authentication_classes = (TokenAuthentication,)
 
@@ -100,6 +105,33 @@ class CommentDeleteView(generics.DestroyAPIView,LoginRequiredMixin):
             comment = Comment.objects.get(id = self.kwargs["pk"])
         )
 
+class ProductListView(generics.ListAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+class ProductDetailView(generics.RetrieveAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+class ProductCreateView(generics.CreateAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    permission_classes = (IsAuthenticated,IsAdminUser,)
+    authentication_classes = (TokenAuthentication,)
+
+
+class ProductUpdateView(generics.UpdateAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    permission_classes = (IsAuthenticated, IsAdminUser,)
+    authentication_classes = (TokenAuthentication,)
+
+
+class ProductDeleteView(generics.DestroyAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    permission_classes = (IsAuthenticated, IsAdminUser,)
+    authentication_classes = (TokenAuthentication,)
 
 
 

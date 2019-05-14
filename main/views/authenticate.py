@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view
-from main.serializers import UserModelSerializer
+from main.serializers import UserSerializer
 from rest_framework import status
 
 @api_view(['POST'])
@@ -18,7 +18,7 @@ def login(request):
 
 @api_view(['POST'])
 def register(request):
-    serializer = UserModelSerializer(data=request.data)
+    serializer = UserSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)

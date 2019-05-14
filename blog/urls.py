@@ -17,5 +17,5 @@ urlpatterns=[
     path('about/',views.AboutView.as_view(),name="about"),
     path('store/',views.StoreView.as_view(),name="store"),
 
-
+    path('products/',views.ProductListView.as_view(),name="pro"),
 ]
